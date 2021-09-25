@@ -1,13 +1,19 @@
 
 spring:  application:    name: API-GATEWAY  cloud:    gateway:      routes:      - id: RMS-SERVICE
         uri: lb://RMS-SERVICE
-        predicates:        - Path=/rms/v1/**#        filters:
-#        - name: CircuitBreaker          #          args:#            name: RMS-SERVICE
-#            fallbackuri: forward:/rmsServiceFallBack 
-#      filter:#        hystrix:#          enabled: true
-  
-              
-    
+        predicates:        - Path=/rms/v1/**        filters:
+        - name: CircuitBreaker                    args:            name: RMS-SERVICE
+            fallbackuri: forward:/rmsServiceFallBack
+          
+            
+hystrix:  
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+                  
 eureka:
   client:
     register-with-eureka: true
