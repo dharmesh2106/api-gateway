@@ -1,4 +1,6 @@
-
+server:
+  port: 9002
+  
 spring:  application:    name: API-GATEWAY  cloud:    gateway:      routes:      - id: RMS-SERVICE
         uri: lb://RMS-SERVICE
         predicates:        - Path=/rms/v1/**        filters:
